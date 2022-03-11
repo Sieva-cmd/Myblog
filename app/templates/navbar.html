@@ -28,7 +28,7 @@
 
     <ul class="nav justify-content-end" >
       {% if current_user.is_authenticated%}
-      <li style="color:white;padding:15px; margin-right: 20px;">{{current_user.username}}</li>
+      <li style="color:white;padding:15px; margin-right: 20px;"><a href="{{url_for('main.profile',uname=current_user.username)}} "> Profile</a></li>
       <li class="nav-item" style="color: white;">
         <a class="nav-link" href="{{url_for('auth.logout')}} " style="color: white;">Sign Out</a>
       </li>
