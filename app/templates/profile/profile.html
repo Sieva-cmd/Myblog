@@ -1,18 +1,37 @@
 {% extends 'base.html' %}
 {% block content%}
-    <div class="card" style="width: 18rem;">
-        {%if user.profile_pic_path%}
-        <img class="card-img-top rounded-circle" src="{{url_for('static',filename =user.profile_pic_path }}" alt="Card image cap" style="width: 150px; height: 150px;">
-        {%else%}
-        <p>No profile picture</p>
-        {%endif%}
-        <div class="card-body">
-        <h5 class="card-text">{{user.username|capitalize}} </h5>
-        {%if user.bio%}
-        <p class="card-text">{{user.bio}} </p>
-        {%else%}
-        <p class="card-text">{{user.username|capitalize}} has no bio </p>
-        {%endif%}
+<br>
+<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                        <!--display profile picture-->
+                        {%if user.profile_pic_path%}
+                            <img class="card-img-top rounded-circle" src="{{url_for('static',filename =user.profile_pic_path) }}" alt="Card image cap" style="width: 150px; height: 150px;">
+                        {%else%}
+                        <p>No profile picture</p>
+                        {%endif%}
+                    <div class="card-body">
+                            <!--display username-->
+                        <h5 class="card-text">{{user.username|capitalize}} </h5>
+                        <!--display user bio-->
+                        {%if user.bio%}
+                        <p class="card-text">{{user.bio}} </p>
+                        {%else%}
+                            <p class="card-text">{{user.username|capitalize}} has no bio </p>
+                        {%endif%}
+                    </div>
+                  
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <h5>
+                    my posts
+                </h5>
+            </div>
         </div>
     </div>
-{% endblock% }
+   
+{%endblock%}
