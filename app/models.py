@@ -25,6 +25,7 @@ class User(UserMixin,db.Model):
     email =db.Column(db.String(255), unique =True,index =True)
     bio =db.Column(db.String(255))
     profile_pic_path =db.Column(db.String())
+    blogs =db.relationship('Post',backref='user',lazy ="dynamic")
 
 
     @property
@@ -52,6 +53,21 @@ class Role(db.Model):
     id = db.Column(db.Integer,primary_key =True) 
     name = db.Column(db.String(255))
     users =db.relationship('User',backref ='role',lazy ="dynamic")
+  
 
     def __repr__(self):
-        return f'Role{self.name}'      
+        return f'Role{self.name}'   
+
+class Post(db.Model):
+    id =db.Column(db.Integer,primary_key=True)
+    title=db.Column(db.String(255))
+    blog =db.Column(db.String(255))  
+    user_id =db.Column(db.Integer,db.ForeignKey('users.id'))   
+
+    def save_post(self):
+        db.session.add(self)
+        db.session.commit() 
+
+
+    def __repr__(self):
+      return f'Post {self.blog}'     
