@@ -1,0 +1,38 @@
+    
+
+  
+{% macro display(blogs) %}
+<div class="container-fluid">
+  <div class="row">
+    {% if blogs %}
+    {% for blog in blogs %}
+    <div class="col-md-4">
+      <div class="card m-1 p-0">
+        <p class="card-header"> {{blog.title}} </p>
+        <div class="card-body">
+          <p class="m-0 p-0"><strong></strong></p>
+          <p class="m-0 p-0">{{blog.blog}}</p><br>
+        </div>
+        <div>
+
+         
+        </div>
+
+        <div class="card-footer text-muted">
+          <p class="text-center p-0 m-0">Posted by:{{blog.user.username}}</p>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+    {% else %}
+    <div class="card">
+      <div class="card-body">
+
+        <p class="card-title">No Blogs yet posted</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}

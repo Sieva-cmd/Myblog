@@ -1,9 +1,9 @@
 
 from flask import render_template,redirect,request,url_for,abort
 from . import main
-from flask_login import login_required
-from ..models import User
-from .forms import UpdateProfile
+from flask_login import current_user, login_required
+from ..models import User,Post
+from .forms import PostForm, UpdateProfile
 from .. import db,photos
 from ..requests import get_quote
 
@@ -14,9 +14,10 @@ def index():
 
     title = 'My blog'
     my_quote =get_quote()
+    blogs =Post.query.all()
 
 
-    return render_template('index.html',title=title,my_quote=my_quote)
+    return render_template('index.html',title=title,my_quote=my_quote,blogs=blogs)
 
 
 @main.route('/user/<uname>')
@@ -60,10 +61,14 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))    
 
-# @main.route('/quote/<int:id>')
-# @login_required
-# def quote(id):
-#     quote =get_quote(id)
-#     # quote =f'{qoute.quote}'
-
-#     return render_template('quote.html',qoute =quote)
+@main.route('/create_new',methods=["GET","POST"])
+@login_required
+def new_blog():
+    form =PostForm()
+    if form.validate_on_submit():
+        title =form.title.data
+        blog =form.blog.data
+        new_blog =Post(title=title,blog=blog,user=current_user)
+        new_blog.save_post()
+        return redirect(url_for('main.index'))
+    return render_template('new_blog.html',form =form)    

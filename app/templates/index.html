@@ -1,4 +1,4 @@
-
+{%import 'macros.html' as macro%}
 
 {% extends 'base.html' %}
 
@@ -7,11 +7,14 @@
 <br>
   <div class="container">
       <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
               <h5>Quote of the day</h5>
               <p>{{my_quote.quote}} </p>
               <p>by{{my_quote.author}} </p>
 
+          </div>
+          <div class="col-md-9">
+              {{macro.display(blogs)}}
           </div>
       </div>
   </div>
