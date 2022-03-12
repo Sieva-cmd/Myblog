@@ -1,1 +1,19 @@
+
+
 {% extends 'base.html' %}
+
+{%block content%}
+<br>
+<br>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4">
+              <h5>Quote of the day</h5>
+              <p>{{my_quote.quote}} </p>
+              <p>by{{my_quote.author}} </p>
+
+          </div>
+      </div>
+  </div>
+{%endblock%}
+
