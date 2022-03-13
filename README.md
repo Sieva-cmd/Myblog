@@ -8,7 +8,7 @@ This is my blog where I can share ideas and other people can comment on them
 
 
 ## website image
-![News App]()
+![News App](https://github.com/Sieva-cmd/Myblog/blob/master/app/static/photos/web.png)
 
 
 
