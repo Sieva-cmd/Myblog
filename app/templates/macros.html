@@ -15,11 +15,13 @@
         </div>
         <div>
 
+          <span class="pl-4"><a href="{{url_for('main.comment',post_id = blog.id)}}" class="btn btn-outline-primary btn-sm"> Comment</a></span>
+
          
         </div>
 
         <div class="card-footer text-muted">
-          <p class="text-center p-0 m-0">Posted by:{{blog.user.username}}</p>
+          <p class="text-center p-0 m-0">Posted by: {{blog.user.username}}</p>
         </div>
       </div>
     </div>

@@ -25,7 +25,8 @@ class User(UserMixin,db.Model):
     email =db.Column(db.String(255), unique =True,index =True)
     bio =db.Column(db.String(255))
     profile_pic_path =db.Column(db.String())
-    blogs =db.relationship('Post',backref='user',lazy ="dynamic")
+    blogs =db.relationship("Post",backref='user',lazy ='dynamic')
+    comment = db.relationship("Comment",backref="user",lazy="dynamic")
 
 
     @property
@@ -59,15 +60,45 @@ class Role(db.Model):
         return f'Role{self.name}'   
 
 class Post(db.Model):
+    __tablename__ ='post'
     id =db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String(255))
     blog =db.Column(db.String(255))  
-    user_id =db.Column(db.Integer,db.ForeignKey('users.id'))   
+    user_id =db.Column(db.Integer,db.ForeignKey('users.id'))  
+    comment = db.relationship("Comment",backref="post",lazy="dynamic")
+     
 
     def save_post(self):
         db.session.add(self)
         db.session.commit() 
 
+    @classmethod    
+    def delete_blog(cls,blog_id):
+        deleted =Post.query.filter_by(id=blog_id).all()
+        deleted.remove()   
+
 
     def __repr__(self):
       return f'Post {self.blog}'     
+
+class Comment(db.Model):
+    __tablename__ ='comments'
+    id =db.Column(db.Integer, primary_key =True)
+    comment =db.Column(db.Text())
+    post_id = db.Column(db.Integer,db.ForeignKey("post.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,post_id):
+        comments =Comment.query.filter_by(post_id=post_id).all()
+
+        return comments
+    @classmethod
+    def delete_comment(cls,post_id):
+        comment =Comment.query.filter_by(post_id=post_id).first() 
+        comment.remove()      
+          
